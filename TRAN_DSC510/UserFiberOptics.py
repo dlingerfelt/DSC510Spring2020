@@ -2,10 +2,10 @@
 username= input('What is your username?\n')
 print('Welcome '+ username)
 company_name=input('What is your company name?\n')
-#quantity of fiber optic cable in feet
-quantity= input('How many feet of fiber optic cable do you want installed?\n')
+quantity= input('How many feet of fiber optic cable do you want installed?\n') #quantity of fiber optic cable in feet
 price= 0.87
-total_cost= float(quantity)*price
+total_cost= float(quantity)*price #Calculate installation cost of fiber optic cable to be installed from user
+#Receipt for user
 print('Receipt\n')
 print(username)
 print(company_name)
