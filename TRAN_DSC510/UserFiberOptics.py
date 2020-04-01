@@ -1,10 +1,10 @@
 #The purpose of this program is to retrieve company name and number of feet of fiber optic cable to be installed from user, Assignment number 2.1, Hanh Tran
 username= input('What is your username?\n')
-print('Welcome '+ username)
+    print('Welcome' + username)
 company_name=input('What is your company name?\n')
 quantity= input('How many feet of fiber optic cable do you want installed?\n') #quantity of fiber optic cable in feet
-price= 0.87
-total_cost= float(quantity)*price #Calculate installation cost of fiber optic cable to be installed from user
+    price= 0.87
+    total_cost= float(quantity)*price #Calculate installation cost of cable
 #Receipt for user
 print('Receipt\n')
 print(username)

@@ -35,7 +35,7 @@ print(company_name)
 print('This is the total cost calculation of your installation:')
 print('Discount price per feet only if you request more than 100ft:', price)
 print('Quantity of feet you need:', cable_feet)
-print('Your calculated total cost:', total_cost)
+print(f'Your calculated total cost: ${total_cost:,.2f}')
 
 
 
