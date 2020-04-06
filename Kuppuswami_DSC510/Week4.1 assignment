@@ -1,0 +1,49 @@
+import datetime as dt
+
+
+def main():
+    amt=0.87
+
+amt=0.87
+Amtmorethan500_A = 0.50
+Amtmorethan250_B = 0.70
+Amtmorethan100_C = 0.80
+
+
+Quotation_date = dt.date.today().strftime("%d/%m/%y")
+print("Welcome to fiber optics installation company")
+get_input = input("Please enter your company name :")
+company_name = get_input
+
+get_input = input("Please enter the feet for fiber optics installation :")
+#get input qty
+qty = round(float(get_input), 2)
+
+
+#Calculate the qty * Cost
+
+def costofcable(qty ,amt):
+    cost_a = round(qty * amt , 2)
+    print (cost_a)
+    return cost_a
+
+if qty > 500: total_cost_of_installation = costofcable(qty , Amtmorethan500_A)
+elif qty > 250: total_cost_of_installation = costofcable(qty ,Amtmorethan250_B)
+elif qty > 100: total_cost_of_installation = costofcable(qty ,Amtmorethan100_C)
+else: total_cost_of_installation = costofcable(qty,0.87)
+
+#Print the output
+print ('#'*80 + '\n' +
+     '' + ' '*20 + "Price for fiber Optics Installation after discount" + ' '*10 + '' + '\n'+
+      Quotation_date + '\n'+
+      company_name + '\n' +
+      '#'*80 + '\n' +
+'Number of Feet to be Installed: '+str(qty)+ ' qty\n' +
+      '      Fiber Installation cost: $'+ str(total_cost_of_installation) + '\n' +
+
+      '#' * 80 + '\n' +
+      '   Total cost of Installation: $'+str(total_cost_of_installation) + '\n' +
+      '#' * 80)
+if __name__ == '__main__':
+    main()
+
