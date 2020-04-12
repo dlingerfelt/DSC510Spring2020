@@ -52,7 +52,7 @@ def main_wloop():
         if operation in averg:
             # calls the necessary function to perform calculation
             calculateAverage()
-            # the sentinel value to end the loop is none.
+            # the sentinel value to end the loop.
         if operation == 'exit':
             break
     print ('You have exited')
