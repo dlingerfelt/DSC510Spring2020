@@ -1,0 +1,51 @@
+#Algoritham to Create a program which uses the Request library to make a GET request
+#The program will receive a JSON response which includes various pieces of data.
+#DSC510-T303 Introduction to Programming (2205-1)
+#Created by Rajkumar Kuppuswami
+#Created on 05/16/2020
+#Program to call the rest API and display the joke of Chuck Norris.
+#welcome message for the user
+#Use try Except method to catch the error and display.
+
+import requests
+
+def get_data(data):
+    #Split the json data to the list data
+    joke_json = str(data['value']).split()
+    list_data = ""
+
+    for A in joke_json:
+        list_data=f'{list_data} {A}'
+        print(list_data)
+
+def Call_data():
+    url = 'https://api.chucknorris.io/jokes/random'
+    try:
+        #GET THE API REQUEST USING GET METHOD
+       # response_json=requests.get(url).json()
+        response_json = requests.get(url,verify=False).json()
+    except Exception as error:
+        #Capture the exception
+        raise Exception(f"API Call Failed:{error}")
+    return response_json
+
+#-----------------------------------Main function to get the welcome note--------------------------------------
+def main():
+
+    print("Welcome to Chuck Norris joke Program")
+    #to end the program when user enter incorrect value
+    while True:
+        #get user input to call the API
+        user_input = input("Enter (Y/y) to get the joke or Enter (N/n) to exit :")
+        if user_input=='Y' or user_input=='y':
+            try:
+                get_data(Call_data())
+#ERROR Exception for when user enter wrong value
+            except Exception as e:
+                print(f"{e}")
+        elif user_input=='N' or user_input=='n':
+            break
+        else:
+                print("please enter valid API")
+
+main()
