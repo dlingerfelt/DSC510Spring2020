@@ -17,7 +17,6 @@ import json
 def service_joke():
     serviceurl = 'https://api.chucknorris.io/jokes/random'
     try:
-        # make a GET request of the API
         joke = requests.get(serviceurl).json()
     except Exception as fail:
         raise Exception(f'==== Fail to Retrieve ===={fail}')
@@ -27,7 +26,7 @@ def service_joke():
 def pretty(joke):
     print('--------This is your joke----------')
     print(joke['value'])
-
+    
 # created an error checking function so if user enters various forms of Yes
 # the joke will display and forms of No will exit program
 # anything that isn't Y/N will be an invalid user response
@@ -42,6 +41,7 @@ def user_inp():
     else:
         print('==== Invalid Response: Failure to Retrieve ====')
         exit()
+       
 def main():
     # Display Welcome message for user
     print('Welcome to the World that is Chuck Norris!')
