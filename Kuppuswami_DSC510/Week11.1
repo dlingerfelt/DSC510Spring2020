@@ -1,0 +1,45 @@
+import locale
+
+class CashRegister:
+    def __init__(self):
+        self.items=[]
+        self.item_count=0
+        self.total_price=0
+
+    def add_item(self, Amount):
+        self.items.append(Amount)
+        self.item_count = len(self.items)
+        self.total_price = sum(self.items)
+
+    def get_total(self):
+        return self.total_price
+
+    def get_count(self):
+        return self.item_count
+
+
+def get_item(item):
+    while True:
+        price = input("Enter the Price of Item / Enter any key to exit and provide the total: ")
+        if price.isalpha():
+            break
+        else:
+            try:
+                price = int(price)
+            except ValueError:
+                print("Please Enter integer")
+            else:
+                price = int(price)
+                item.add_item(price)
+
+def main():
+    print('Welcome to our cash register program!')
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+    cost = CashRegister()
+    get_item(cost)
+    total_Item=cost.get_count()
+    total_item_price=cost.get_total()
+    print('Number of items:  {}'.format((total_Item)))
+    print('Total Price: {}'.format(locale.currency(total_item_price)))
+
+main()
