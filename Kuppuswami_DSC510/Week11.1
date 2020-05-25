@@ -1,15 +1,26 @@
+#Algoritham to uses object oriented programming concepts by creating a simple cash register program
+#The program will be used instance method called addItem which takes one parameter for price.
+#used  CashRegister class
+#DSC510-T303 Introduction to Programming (2205-1)
+#Created by Rajkumar Kuppuswami
+#Created on 05/24/2020
+#welcome message for the user
+#Use try Except method to catch the error and display.
+#getTotal – returns totalPrice
+#getCount – returns the itemCount of the cart
+
 import locale
 
 class CashRegister:
     def __init__(self):
-        self.items=[]
         self.item_count=0
         self.total_price=0
+        self.Entry = []
 
     def add_item(self, Amount):
-        self.items.append(Amount)
-        self.item_count = len(self.items)
-        self.total_price = sum(self.items)
+        self.Entry.append(Amount)
+        self.item_count = len(self.Entry)
+        self.total_price = sum(self.Entry)
 
     def get_total(self):
         return self.total_price
@@ -33,13 +44,17 @@ def get_item(item):
                 item.add_item(price)
 
 def main():
-    print('Welcome to our cash register program!')
+    print('-' * 100)
+    print('Welcome to our cash register Calculator')
+    print('-' * 100)
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
     cost = CashRegister()
     get_item(cost)
     total_Item=cost.get_count()
     total_item_price=cost.get_total()
+    print('-'*100)
     print('Number of items:  {}'.format((total_Item)))
     print('Total Price: {}'.format(locale.currency(total_item_price)))
+    print('-' * 100)
 
 main()
