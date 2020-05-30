@@ -31,9 +31,10 @@ class Weather:
     wind = 0
     sunrise = ""
     sunset = ""
+    city_name = ""
 
     def __init__(self, weather_date, current_temperature, feel, description,
-                 min, max, humidity, wind, sunrise, sunset):
+                 min, max, humidity, wind, sunrise, sunset, city_name):
         self.weather_date = weather_date
         self.current_temperature = current_temperature
         self.feel = feel
@@ -44,6 +45,7 @@ class Weather:
         self.wind = wind
         self.sunrise = sunrise
         self.sunset = sunset
+        self.city_name = city_name
 
     def print_weather(self):
         # Print response in readable format
@@ -51,11 +53,14 @@ class Weather:
         print(dash * 40)
         print(
             f'Today: {self.weather_date} \n'
-            f'Current Temperature: {int(self.current_temperature)} F \n'
+            f'City: {self.city_name} \n'
+            # Round the temperature values and then take integer part of it to 
+            # avoid decimal temperatures. 
+            f'Current Temperature: {int(round(self.current_temperature))} F \n'
             f'{dash * 40}\n'
-            f'Feels Like : {int(self.feel)} F \n'
+            f'Feels Like : {int(round(self.feel))} F \n'
             f'Description: {self.description} \n'
-            f'Min: {int(self.min)} / Max:{int(self.max)} F \n'
+            f'Min: {int(round(self.min))} / Max:{int(round(self.max))} F \n'
             f'Humidity: {self.humidity}  \n'
             f'Wind: {int(self.wind)} mph \n'
             f'{dash * 40}\n'
@@ -65,9 +70,7 @@ class Weather:
 
 def get_weather_data(city):
     api_key = "c3e41524f473982312cc57bf5778b97a"
-    current_weather_api_address = "https://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}"
-    url = current_weather_api_address.format(','.join(city), api_key)
-
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={','.join(city)}&units=imperial&appid={api_key}"
     try:
         # Request weather data using Current weather api
         response = requests.get(url)
@@ -103,7 +106,8 @@ def process_weather(received_response):
         received_response["main"]["humidity"],
         received_response["wind"]["speed"],
         get_time_in_readable_format(received_response["sys"]["sunrise"]),
-        get_time_in_readable_format(received_response["sys"]["sunset"])
+        get_time_in_readable_format(received_response["sys"]["sunset"]),
+        received_response["name"]
     )
 
     # Print weather received.
@@ -112,14 +116,13 @@ def process_weather(received_response):
 
 def main():
     print(f'Welcome to weather app.\n'
-          f'Allowed city format - \n'
+          f'Please enter city in following city format. \n'
+          f'example - \n'
           f'Omaha\n'
-          f'Omaha, USA\n'
-          f'Omaha, NE, USA\n')
+          f'Omaha, NE, US\n')
     while True:
-        city = list(map(str, input("Please enter city or q/Q to Quit:").split(',')))
-        print(city)
         try:
+            city = list(map(str, input("Please enter city or q/Q to Quit:").split(',')))
             if len(city) == 1 and str(city[0]).upper() == "Q":
                 break
             elif len(city) > 3 or (len(city) == 1 and city[0] == ""):
@@ -131,11 +134,11 @@ def main():
                 for item in city:
                     # Check if city name has alpha and city name is greater than 1 character.
                     # It is assumed that city name should be at least 2 character.
-                    if str(item).strip().isalpha() and len(str(item).strip()) > 1:
+                    if all(x.isalpha() or x.isspace() for x in item) and len(str(item).strip()) > 1:
                         cleaned_city.append(str(item).strip())
                     else:
                         raise Exception(f'City name entered is not in correct format: {city}')
-                print(cleaned_city)
+
                 # Request weather data from weather API
                 received_response = get_weather_data(cleaned_city)
                 if len(received_response) > 0:
